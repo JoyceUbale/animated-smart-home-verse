@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { SmartHomeProvider } from "@/contexts/SmartHomeContext";
+import { withCatalyst } from "@/catalyst/HOC/withCatalyst";
 
 // Pages
 import Dashboard from "@/pages/Dashboard";
@@ -19,7 +20,8 @@ import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const App = () => (
+// Apply Catalyst HOC to our app
+const AppBase = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider>
       <SmartHomeProvider>
@@ -44,4 +46,6 @@ const App = () => (
   </QueryClientProvider>
 );
 
+// Apply the Catalyst HOC pattern
+const App = withCatalyst(AppBase);
 export default App;
