@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import MainLayout from '@/components/MainLayout';
 import { useSmartHome } from '@/contexts/SmartHomeContext';
@@ -17,19 +16,17 @@ import {
 } from "@/components/ui/carousel";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
-import { Activity, Clock, HomeIcon, RotateCw, Zap, CubeIcon } from 'lucide-react';
+import { Activity, Clock, HomeIcon, RotateCw, Zap, Cube } from 'lucide-react';
 
 const Dashboard = () => {
   const { devices, loading, toggleLight, setThermostat, toggleLock } = useSmartHome();
   const dashboardRef = useRef<HTMLDivElement>(null);
   const [energySaving, setEnergySaving] = useState<number>(24);
   
-  // Filter devices by type
   const lights = devices.filter(device => device.type === 'light');
   const thermostats = devices.filter(device => device.type === 'thermostat');
   const locks = devices.filter(device => device.type === 'lock');
 
-  // Update energy savings every few seconds for animation
   useEffect(() => {
     const interval = setInterval(() => {
       setEnergySaving(prev => {
@@ -41,13 +38,11 @@ const Dashboard = () => {
     return () => clearInterval(interval);
   }, []);
   
-  // Animate dashboard on mount with staggered effect
   useEffect(() => {
     if (!dashboardRef.current) return;
     
     const timeline = gsap.timeline();
     
-    // Animate hero section
     timeline.from(".hero-section", {
       y: 50,
       opacity: 0,
@@ -55,7 +50,6 @@ const Dashboard = () => {
       ease: "power3.out",
     });
     
-    // Animate status cards with stagger
     timeline.from(".status-card", {
       y: 30,
       opacity: 0,
@@ -64,7 +58,6 @@ const Dashboard = () => {
       ease: "back.out(1.7)",
     }, "-=0.4");
     
-    // Animate 3D model section
     timeline.from(".model-3d-section", {
       y: 30,
       opacity: 0,
@@ -72,7 +65,6 @@ const Dashboard = () => {
       ease: "power3.out",
     }, "-=0.2");
     
-    // Animate device sections
     timeline.from(".device-section", {
       y: 50,
       opacity: 0,
@@ -85,7 +77,6 @@ const Dashboard = () => {
   return (
     <MainLayout title="">
       <div ref={dashboardRef} className="space-y-10">
-        {/* Hero Section */}
         <section className="hero-section relative overflow-hidden rounded-xl bg-gradient-to-br from-primary/80 to-purple-600 text-white p-8 mb-8">
           <div className="absolute top-0 right-0 w-full h-full overflow-hidden opacity-10">
             <div className="absolute top-10 right-10 w-40 h-40 rounded-full bg-white blur-3xl animate-pulse-slow"></div>
@@ -109,7 +100,6 @@ const Dashboard = () => {
           </div>
         </section>
         
-        {/* Status Overview */}
         <section className="mb-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <Card className="status-card border-none shadow-lg bg-gradient-to-br from-sky-50 to-blue-100 dark:from-sky-900/30 dark:to-blue-900/20">
@@ -154,11 +144,10 @@ const Dashboard = () => {
           </div>
         </section>
         
-        {/* 3D Model Section */}
         <section className="model-3d-section mb-10">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl font-semibold flex items-center">
-              <CubeIcon className="mr-2 h-6 w-6 text-primary" />
+              <Cube className="mr-2 h-6 w-6 text-primary" />
               Smart Home Digital Twin
             </h2>
             <HoverCard>
@@ -183,7 +172,6 @@ const Dashboard = () => {
           </div>
         </section>
         
-        {/* Lights Carousel Section */}
         <section className="device-section">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl font-semibold">Lights</h2>
@@ -228,7 +216,6 @@ const Dashboard = () => {
           )}
         </section>
         
-        {/* Thermostats Section */}
         <section className="device-section">
           <h2 className="text-2xl font-semibold mb-4">Climate Control</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -248,7 +235,6 @@ const Dashboard = () => {
           </div>
         </section>
         
-        {/* Security Section */}
         <section className="device-section">
           <h2 className="text-2xl font-semibold mb-4">Security</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
