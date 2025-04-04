@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/carousel";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
-import { Activity, Clock, HomeIcon, RotateCw, Zap, Cube } from 'lucide-react';
+import { Activity, Clock, HomeIcon, RotateCw, Zap, Box } from 'lucide-react';
 
 const Dashboard = () => {
   const { devices, loading, toggleLight, setThermostat, toggleLock } = useSmartHome();
@@ -147,7 +147,7 @@ const Dashboard = () => {
         <section className="model-3d-section mb-10">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl font-semibold flex items-center">
-              <Cube className="mr-2 h-6 w-6 text-primary" />
+              <Box className="mr-2 h-6 w-6 text-primary" />
               Smart Home Digital Twin
             </h2>
             <HoverCard>

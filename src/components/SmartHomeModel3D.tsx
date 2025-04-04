@@ -1,9 +1,14 @@
 
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, useGLTF, Environment, Float, PerspectiveCamera } from '@react-three/drei';
-import { useSmartHome } from '@/contexts/SmartHomeContext';
 import * as THREE from 'three';
+import { useSmartHome } from '@/contexts/SmartHomeContext';
+
+// We need to install @react-three/drei first
+<lov-add-dependency>@react-three/drei@9.122.0</lov-add-dependency>
+
+// Import after installation
+import { OrbitControls, Environment, Float, PerspectiveCamera } from '@react-three/drei';
 
 // Simple house model
 function House({ lights }: { lights: { id: string; status: string; room: string }[] }) {
@@ -37,7 +42,7 @@ function House({ lights }: { lights: { id: string; status: string; room: string 
 
       {/* Rooms with lights */}
       {lights.map((light, index) => {
-        const positions = [
+        const positions: [number, number, number][] = [
           [-1, 0, -1],  // Living Room
           [1, 0, -1],   // Bedroom
           [-1, 0, 1],   // Kitchen
