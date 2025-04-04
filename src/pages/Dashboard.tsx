@@ -5,6 +5,7 @@ import { useSmartHome } from '@/contexts/SmartHomeContext';
 import LightDevice from '@/components/LightDevice';
 import ThermostatDevice from '@/components/ThermostatDevice';
 import LockDevice from '@/components/LockDevice';
+import SmartHomeModel3D from '@/components/SmartHomeModel3D';
 import { gsap } from 'gsap';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
@@ -16,7 +17,7 @@ import {
 } from "@/components/ui/carousel";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
-import { Activity, Clock, Home, RotateCw, Zap } from 'lucide-react';
+import { Activity, Clock, HomeIcon, RotateCw, Zap, CubeIcon } from 'lucide-react';
 
 const Dashboard = () => {
   const { devices, loading, toggleLight, setThermostat, toggleLock } = useSmartHome();
@@ -63,6 +64,14 @@ const Dashboard = () => {
       ease: "back.out(1.7)",
     }, "-=0.4");
     
+    // Animate 3D model section
+    timeline.from(".model-3d-section", {
+      y: 30,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power3.out",
+    }, "-=0.2");
+    
     // Animate device sections
     timeline.from(".device-section", {
       y: 50,
@@ -106,7 +115,7 @@ const Dashboard = () => {
             <Card className="status-card border-none shadow-lg bg-gradient-to-br from-sky-50 to-blue-100 dark:from-sky-900/30 dark:to-blue-900/20">
               <CardContent className="p-4 flex flex-col items-center justify-center">
                 <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-3">
-                  <Home className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                  <HomeIcon className="h-6 w-6 text-blue-600 dark:text-blue-400" />
                 </div>
                 <p className="text-sm font-medium text-muted-foreground">Rooms</p>
                 <p className="text-2xl font-bold">{new Set(devices.map(d => d.room)).size}</p>
@@ -142,6 +151,35 @@ const Dashboard = () => {
                 <p className="text-2xl font-bold">7</p>
               </CardContent>
             </Card>
+          </div>
+        </section>
+        
+        {/* 3D Model Section */}
+        <section className="model-3d-section mb-10">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-2xl font-semibold flex items-center">
+              <CubeIcon className="mr-2 h-6 w-6 text-primary" />
+              Smart Home Digital Twin
+            </h2>
+            <HoverCard>
+              <HoverCardTrigger asChild>
+                <span className="text-primary underline cursor-help">Interactive model</span>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-80">
+                <div className="flex justify-between space-x-4">
+                  <div>
+                    <h4 className="text-sm font-semibold">3D Smart Home Model</h4>
+                    <p className="text-sm">
+                      Drag to rotate the model. The lights will update in real-time as you control your smart home.
+                    </p>
+                  </div>
+                </div>
+              </HoverCardContent>
+            </HoverCard>
+          </div>
+          
+          <div className="rounded-xl overflow-hidden shadow-xl">
+            <SmartHomeModel3D />
           </div>
         </section>
         
