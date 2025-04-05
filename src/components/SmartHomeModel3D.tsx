@@ -1,10 +1,12 @@
+
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Environment, Box } from '@react-three/drei';
 import { useTheme } from '@/contexts/ThemeContext';
+import * as THREE from 'three';
 
 const SmartHomeModel = () => {
-  const gltf = useGLTF('/scene.gltf');
+  const { nodes, materials } = useGLTF('/scene.gltf');
   const theme = useTheme();
   const meshRef = useRef<THREE.Mesh>(null);
 
@@ -22,11 +24,13 @@ const SmartHomeModel = () => {
           name="house001"
           castShadow
           receiveShadow
-          geometry={gltf.nodes.house001_0.geometry}
-          material={gltf.materials.lambert1}
           rotation={[Math.PI / 2, 0, 0]}
           scale={0.01}
-        />
+        >
+          {/* Use Box as a fallback if the model doesn't load properly */}
+          <boxGeometry args={[1, 1, 1]} />
+          <meshStandardMaterial color="#cccccc" />
+        </mesh>
       </scene>
     </group>
   );
